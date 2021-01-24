@@ -14,20 +14,24 @@ public class GameMain extends Canvas implements Runnable {
 	public static boolean running = false;
 
 	private MouseInput mouse;
+	private Handler handler;
 	
 	public static final int WIDTH = 800, HEIGHT = 600;
 
 	public GameMain() {
 		requestFocus();
-		new Window(WIDTH, HEIGHT, "Game Of Life", this);
-
+		new Window(WIDTH, HEIGHT, "Tower Defence", this);
+		
+		handler = new Handler();
 		mouse = new MouseInput();
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
 	}
 
 	private void tick() {
-		
+		try {
+			handler.tick();
+		} catch(Exception ignored) {}
 	}
 
 	private void render() {
@@ -43,6 +47,11 @@ public class GameMain extends Canvas implements Runnable {
 		g.setColor(new Color(230, 230, 230));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
+		//objects
+		try {
+			handler.render(g);
+		} catch(Exception ignored) {}
+
 		//---draw end---	
 		g.dispose();
 		bs.show();
@@ -54,7 +63,6 @@ public class GameMain extends Canvas implements Runnable {
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
-		long timer = System.currentTimeMillis();
 		while(running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
@@ -65,10 +73,6 @@ public class GameMain extends Canvas implements Runnable {
 			}
 			if(running) 
 				render();
-
-			if(System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-			}
 		}
 		stop();
 	}
