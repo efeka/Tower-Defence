@@ -6,8 +6,10 @@ import java.awt.Rectangle;
 public abstract class GameObject  {
 	
 	protected int x, y;
+	protected int velX, velY;
 	protected int width, height;
 	protected ObjectId id;
+	protected int utility;
 	
 	public GameObject(int x, int y, ObjectId id) {
 		this.x = x;
@@ -18,6 +20,14 @@ public abstract class GameObject  {
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
+	
+	public ObjectId getId() {
+		return id;
+	}
+	
+	public int getUtility() {
+		return utility;
+	}
 	
 	public void setX(int x) { 
 		this.x = x; 
@@ -33,6 +43,22 @@ public abstract class GameObject  {
 	
 	public int getY() { 
 		return y; 
+	}
+	
+	public int getVelX() {
+		return velX;
+	}
+	
+	public void setVelX(int velX) {
+		this.velX = velX;
+	}
+	
+	public int getVelY() {
+		return velY;
+	}
+	
+	public void setVelY(int velY) {
+		this.velY = velY;
 	}
 	
 	public int getWidth() {

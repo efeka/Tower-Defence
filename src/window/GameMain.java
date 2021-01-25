@@ -16,7 +16,7 @@ public class GameMain extends Canvas implements Runnable {
 	private MouseInput mouse;
 	private Handler handler;
 	
-	public static final int WIDTH = 800, HEIGHT = 600;
+	public static final int WIDTH = 21 * 32, HEIGHT = 21 * 32;
 
 	public GameMain() {
 		requestFocus();
@@ -44,7 +44,7 @@ public class GameMain extends Canvas implements Runnable {
 		//---draw begin---
 
 		//background
-		g.setColor(new Color(230, 230, 230));
+		g.setColor(new Color(143, 203, 98));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 		//objects

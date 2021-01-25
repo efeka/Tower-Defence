@@ -6,7 +6,7 @@ import java.awt.event.MouseMotionListener;
 public class MouseInput implements MouseListener, MouseMotionListener {
 
 	public static int x = 0, y = 0;
-	private boolean leftPressed = false;
+	public static boolean leftPressed = false;
 
 	public void mousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1)

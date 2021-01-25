@@ -1,8 +1,10 @@
 package framework;
 
 public enum ObjectId {
-	
 	Player(),
-	Block()
+	Tile(),
+	BasicEnemy(),
+	Spawner(),
+	PathingHelper()
 	
 }
