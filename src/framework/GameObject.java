@@ -11,6 +11,9 @@ public abstract class GameObject  {
 	protected ObjectId id;
 	protected int utility;
 	
+	protected int health;
+	protected int priority;
+	
 	public GameObject(int x, int y, ObjectId id) {
 		this.x = x;
 		this.y = y;
@@ -20,6 +23,18 @@ public abstract class GameObject  {
 	public abstract void tick();
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
+	
+	public int getPriority() {
+		return priority;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public void setHealth(int health) {
+		this.health = health;
+	}
 	
 	public ObjectId getId() {
 		return id;

@@ -5,6 +5,10 @@ public enum ObjectId {
 	Tile(),
 	BasicEnemy(),
 	Spawner(),
-	PathingHelper()
+	PathingHelper(),
+	TowerSpace(),
+	TowersMenu(),
+	BasicTower(),
+	BasicBullet()
 	
 }

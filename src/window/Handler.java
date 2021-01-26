@@ -3,12 +3,15 @@ package window;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 import framework.GameObject;
 import framework.ObjectId;
 import objects.PathingHelper;
 import objects.Spawner;
 import objects.Tile;
+import objects.TowerSpace;
 
 public class Handler {
 
@@ -21,8 +24,11 @@ public class Handler {
 	public ArrayList<GameObject> layer1 = new ArrayList<GameObject>();
 	public ArrayList<GameObject> layer2 = new ArrayList<GameObject>();
 	public ArrayList<GameObject> layer3 = new ArrayList<GameObject>();
-
+	
+	public ArrayList<GameObject> enemies;
+	
 	public Handler() {
+		enemies = new ArrayList<GameObject>();
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level1 = loader.loadImage("/level1.png");
 		loadImageLevel(level1);
@@ -41,8 +47,6 @@ public class Handler {
 
 				if (red == 187 && green == 154 && blue == 62) 
 					addObject(new Tile(xx * 32, yy * 32, 1, ObjectId.Tile), BOTTOM_LAYER);
-				if (red == 67 && green == 94 && blue == 219) 
-					addObject(new Spawner(xx * 32, yy * 32, this, ObjectId.Spawner), TOP_LAYER);
 				if (red == 166 && green == 93 && blue == 53)
 					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.UP, ObjectId.PathingHelper), MIDDLE_LAYER);
 				if (red == 0 && green == 127 && blue == 127)
@@ -51,6 +55,17 @@ public class Handler {
 					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.LEFT, ObjectId.PathingHelper), MIDDLE_LAYER);
 				if (red == 0 && green == 74 && blue == 127)
 					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.RIGHT, ObjectId.PathingHelper), MIDDLE_LAYER);
+				if (red == 255 && green == 255 && blue == 255)
+					addObject(new TowerSpace(xx * 32, yy * 32, this, ObjectId.TowerSpace), TOP_LAYER);
+				
+				if (red == 67 && green == 94 && blue == 219) 
+					addObject(new Spawner(xx * 32, yy * 32, Spawner.SPAWN_RIGHT, this, ObjectId.Spawner), TOP_LAYER);
+				if (red == 92 && green == 116 && blue == 224) 
+					addObject(new Spawner(xx * 32, yy * 32, Spawner.SPAWN_LEFT, this, ObjectId.Spawner), TOP_LAYER);
+				if (red == 128 && green == 149 && blue == 242) 
+					addObject(new Spawner(xx * 32, yy * 32, Spawner.SPAWN_UP, this, ObjectId.Spawner), TOP_LAYER);
+				if (red == 158 && green == 175 && blue == 255) 
+					addObject(new Spawner(xx * 32, yy * 32, Spawner.SPAWN_DOWN, this, ObjectId.Spawner), TOP_LAYER);
 			}
 		}
 		//addObject(new HUD(0, 0, this, ObjectId.HUD), TOP_LAYER);

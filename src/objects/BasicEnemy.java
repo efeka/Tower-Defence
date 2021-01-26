@@ -19,10 +19,12 @@ public class BasicEnemy extends GameObject {
 	
 	private int velocity = 1;
 	
-	public BasicEnemy(int x, int y, int initialDirection, Handler handler, ObjectId id) {
+	public BasicEnemy(int x, int y, int initialDirection, int priority, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
+		this.priority = priority;
 		width = height = 32;
+		health = 100;
 		
 		switch(initialDirection) {
 		case MOVE_UP:
@@ -45,6 +47,10 @@ public class BasicEnemy extends GameObject {
 	}
 
 	public void tick() {
+		if (health <= 0) {
+			handler.removeObject(this);
+			handler.enemies.remove(this);
+		}
 		x += velX;
 		y += velY;
 		
@@ -121,7 +127,7 @@ public class BasicEnemy extends GameObject {
 
 	public void render(Graphics g) {
 		g.setColor(Color.black);
-		g.fillRect(x, y, width, height);
+		g.fillRect(x + 5, y + 5, width - 10, height - 10);
 	}
 
 	public Rectangle getBounds() {
