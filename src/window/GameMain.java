@@ -49,7 +49,7 @@ public class GameMain extends Canvas implements Runnable {
 	
 	public static enum STATE{
 		MAIN_MENU,
-		PAUSE_MENU,
+		PAUSED,
 		GAME,
 		LEVELS
 	};

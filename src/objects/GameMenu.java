@@ -3,9 +3,8 @@ package objects;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
-import javax.swing.SwingConstants;
 
 import framework.GameObject;
 import framework.MouseInput;
@@ -35,15 +34,26 @@ public class GameMenu extends GameObject {
 			pressTime = System.currentTimeMillis();
 			if (getPauseButtonBounds().contains(MouseInput.x, MouseInput.y)) {
 				if (GameMain.state == GameMain.STATE.GAME)
-					GameMain.state = GameMain.STATE.PAUSE_MENU;
-				else if (GameMain.state == GameMain.STATE.PAUSE_MENU)
+					GameMain.state = GameMain.STATE.PAUSED;
+				else if (GameMain.state == GameMain.STATE.PAUSED)
 					GameMain.state = GameMain.STATE.GAME;
 			}
 		}
 	}
 
 	public void render(Graphics g) {
-		g.drawImage(tex.gameMenu, x, y, null);
+		if (GameMain.state == GameMain.STATE.PAUSED) {
+			if (getPauseButtonBounds().contains(MouseInput.x, MouseInput.y)) 
+				g.drawImage(tex.gameMenu[3], x, y, null);
+			else
+				g.drawImage(tex.gameMenu[2], x, y, null);
+		}
+		else {
+			if (getPauseButtonBounds().contains(MouseInput.x, MouseInput.y)) 
+				g.drawImage(tex.gameMenu[1], x, y, null);
+			else
+				g.drawImage(tex.gameMenu[0], x, y, null);
+		}
 		
 		g.setColor(Color.white);
 		g.setFont(font);
@@ -61,7 +71,7 @@ public class GameMenu extends GameObject {
 	}
 
 	public Rectangle getPauseButtonBounds() {
-		return new Rectangle(x + 32 * 4, y + height / 4, 32, 32);
+		return new Rectangle(x + width / 2 - 32, y + 5, 64, 54);
 	}
 
 }
