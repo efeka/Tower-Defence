@@ -30,8 +30,10 @@ public class TowersMenu extends GameObject {
 		if (disableTimer < disableCooldown) 
 			disableTimer++;
 		else {
-			if (MouseInput.leftPressed && !getBounds().contains(MouseInput.x, MouseInput.y)) 
+			if (MouseInput.leftPressed && !getBounds().contains(MouseInput.x, MouseInput.y)) { 
 				handler.removeObject(this);
+				isOpen = false;
+			}
 		}
 		
 		if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower1().contains(MouseInput.x, MouseInput.y)) {

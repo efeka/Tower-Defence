@@ -6,10 +6,13 @@ import java.awt.Rectangle;
 
 import framework.GameObject;
 import framework.ObjectId;
+import framework.Texture;
+import window.GameMain;
 
 public class Tile extends GameObject {
 	
 	private int type;
+	private Texture tex = GameMain.getTexture();
 
 	public Tile(int x, int y, int type, ObjectId id) {
 		super(x, y, id);
@@ -22,15 +25,7 @@ public class Tile extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		switch(type) {
-		case 0:
-			g.setColor(new Color(143, 203, 98));
-			break;
-		case 1:
-			g.setColor(new Color(187, 154, 62));
-			break;
-		}
-		g.fillRect(x, y, width, height);
+		g.drawImage(tex.grassFloor[type], x, y, width, height, null);
 	}
 
 	public Rectangle getBounds() {

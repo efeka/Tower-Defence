@@ -7,12 +7,15 @@ import java.awt.Rectangle;
 import framework.GameObject;
 import framework.MouseInput;
 import framework.ObjectId;
+import framework.Texture;
+import window.GameMain;
 import window.Handler;
 
 public class TowerSpace extends GameObject {
 
 	private Handler handler;
-
+	private Texture tex = GameMain.getTexture();
+	
 	public final int EMPTY = 0;
 	public final int TOWER1 = 1;
 	public final int TOWER2 = 2;
@@ -40,13 +43,13 @@ public class TowerSpace extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		if (getBounds().contains(MouseInput.x, MouseInput.y)) {
-			g.setColor(new Color(255, 255, 255, 80));
+		g.drawImage(tex.grassFloor[15], x, y, width, height, null);
+		
+		if (GameMain.state == GameMain.STATE.GAME && getBounds().contains(MouseInput.x, MouseInput.y)) {
+			g.drawImage(tex.towerSpace, x, y, width, height, null);
+			g.setColor(new Color(255, 255, 255, 50));
 			g.fillRect(x, y, width, height);
 		}
-
-		g.setColor(Color.white);
-		g.drawRect(x, y, width, height);
 	}
 
 	public Rectangle getBounds() {

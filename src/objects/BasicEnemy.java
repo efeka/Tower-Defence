@@ -4,8 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import effects.CoinEarnedAnimation;
 import framework.GameObject;
 import framework.ObjectId;
+import window.GameMain;
 import window.Handler;
 
 public class BasicEnemy extends GameObject {
@@ -50,6 +52,11 @@ public class BasicEnemy extends GameObject {
 		if (health <= 0) {
 			handler.removeObject(this);
 			handler.enemies.remove(this);
+			int random = (int)(Math.random() * 3 + 1);
+			for (int i = 0; i < random; i++) {
+				GameMenu.coins++;
+				handler.addObject(new CoinEarnedAnimation(x, y + i * 10, handler, ObjectId.Coin), Handler.TOP_LAYER);
+			}
 		}
 		x += velX;
 		y += velY;
@@ -58,6 +65,10 @@ public class BasicEnemy extends GameObject {
 	}
 	
 	private void collision() {
+		Rectangle window = new Rectangle(0, 0, GameMain.WIDTH, GameMain.HEIGHT);
+		if (!getBounds().intersects(window))
+			handler.removeObject(this);
+		
 		for (int i = 0; i < handler.layer2.size(); i++) {
 			GameObject tempObject = handler.layer2.get(i);
 			if (tempObject.getId() == ObjectId.PathingHelper) {
@@ -127,7 +138,7 @@ public class BasicEnemy extends GameObject {
 
 	public void render(Graphics g) {
 		g.setColor(Color.black);
-		g.fillRect(x + 5, y + 5, width - 10, height - 10);
+		g.fillRect(x, y, width, height);
 	}
 
 	public Rectangle getBounds() {

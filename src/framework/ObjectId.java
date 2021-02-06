@@ -9,6 +9,8 @@ public enum ObjectId {
 	TowerSpace(),
 	TowersMenu(),
 	BasicTower(),
-	BasicBullet()
+	BasicBullet(),
+	GameMenu(),
+	Coin()
 	
 }
