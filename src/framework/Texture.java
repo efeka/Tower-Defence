@@ -18,6 +18,9 @@ public class Texture {
 	public BufferedImage[] coinEarned = new BufferedImage[5];
 	
 	public BufferedImage[] gameMenu = new BufferedImage[4];
+	public BufferedImage[] rockMenu = new BufferedImage[3];
+	
+	public BufferedImage[] rocks = new BufferedImage[3];
 	
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();
@@ -49,5 +52,10 @@ public class Texture {
 		
 		for (int i = 0; i < 4; i++)
 			gameMenu[i] = menu_sheet.getSubimage(1, 1 + 66 * i, 32 * 11, 32 * 2 + 1);
+		
+		rocks[0] = block_sheet.getSubimage(199, 34, 32, 32);
+		
+		for (int i = 0; i < 3; i++)
+			rockMenu[i] = menu_sheet.getSubimage(1, 265 + 59 * i, 199, 58);
 	}
 }

@@ -54,7 +54,8 @@ public class BasicEnemy extends GameObject {
 			handler.enemies.remove(this);
 			int random = (int)(Math.random() * 3 + 1);
 			for (int i = 0; i < random; i++) {
-				GameMenu.coins++;
+				if (GameMenu.coins < 999)
+					GameMenu.coins++;
 				handler.addObject(new CoinEarnedAnimation(x, y + i * 10, handler, ObjectId.Coin), Handler.TOP_LAYER);
 			}
 		}

@@ -16,7 +16,6 @@ public class TowersMenu extends GameObject {
 	private Handler handler;
 
 	private int disableTimer = 0, disableCooldown = 15;
-	
 	public boolean isOpen = false;
 
 	public TowersMenu(int x, int y, TowerSpace tower, Handler handler, ObjectId id) {
@@ -27,11 +26,13 @@ public class TowersMenu extends GameObject {
 	}
 
 	public void tick() {
+		if (!isOpen)
+			return;
 		if (disableTimer < disableCooldown) 
 			disableTimer++;
 		else {
 			if (MouseInput.leftPressed && !getBounds().contains(MouseInput.x, MouseInput.y)) { 
-				handler.removeObject(this);
+				disableTimer = 0;
 				isOpen = false;
 			}
 		}
@@ -39,32 +40,34 @@ public class TowersMenu extends GameObject {
 		if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower1().contains(MouseInput.x, MouseInput.y)) {
 			tower.isEmpty = false;
 			tower.towerType = tower.TOWER1;
-			handler.addObject(new BasicTower(tower.getX(), tower.getY(), handler, ObjectId.BasicTower), Handler.TOP_LAYER);
+			handler.addObject(new BasicTower(tower.getX(), tower.getY(), handler, ObjectId.BasicTower), Handler.MIDDLE_LAYER);
 			handler.removeObject(this);
 			isOpen = false;
 		}
-		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower2().contains(MouseInput.x, MouseInput.y)) {
-			tower.isEmpty = false;
-			tower.towerType = tower.TOWER2;
-			handler.removeObject(this);
-			isOpen = false;
-		}
-		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower3().contains(MouseInput.x, MouseInput.y)) {
-			tower.isEmpty = false;
-			tower.towerType = tower.TOWER3;
-			handler.removeObject(this);
-			isOpen = false;
-		}
-		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower4().contains(MouseInput.x, MouseInput.y)) {
-			tower.isEmpty = false;
-			tower.towerType = tower.TOWER4;
-			handler.removeObject(this);
-			isOpen = false;
-		}
+//		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower2().contains(MouseInput.x, MouseInput.y)) {
+//			tower.isEmpty = false;
+//			tower.towerType = tower.TOWER2;
+//			handler.removeObject(this);
+//			isOpen = false;
+//		}
+//		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower3().contains(MouseInput.x, MouseInput.y)) {
+//			tower.isEmpty = false;
+//			tower.towerType = tower.TOWER3;
+//			handler.removeObject(this);
+//			isOpen = false;
+//		}
+//		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower4().contains(MouseInput.x, MouseInput.y)) {
+//			tower.isEmpty = false;
+//			tower.towerType = tower.TOWER4;
+//			handler.removeObject(this);
+//			isOpen = false;
+//		}
 
 	}
 
 	public void render(Graphics g) {
+		if (!isOpen)
+			return;
 		g.setColor(Color.red);
 		g.fillRect(x, y, width, height);
 

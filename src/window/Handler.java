@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import framework.GameObject;
 import framework.ObjectId;
 import objects.PathingHelper;
+import objects.Rock;
 import objects.Spawner;
 import objects.Tile;
 import objects.TowerSpace;
@@ -61,7 +62,7 @@ public class Handler {
 					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.RIGHT, true, ObjectId.PathingHelper), MIDDLE_LAYER);
 				
 				if (red == 255 && green == 255 && blue == 255)
-					addObject(new TowerSpace(xx * 32, yy * 32, this, ObjectId.TowerSpace), TOP_LAYER);
+					addObject(new TowerSpace(xx * 32, yy * 32, this, ObjectId.TowerSpace), MIDDLE_LAYER);
 				
 				if (red == 67 && green == 94 && blue == 219) 
 					addObject(new Spawner(xx * 32, yy * 32, Spawner.SPAWN_RIGHT, this, ObjectId.Spawner), TOP_LAYER);
@@ -102,6 +103,9 @@ public class Handler {
 					addObject(new Tile(xx * 32, yy * 32, 13, ObjectId.Tile), BOTTOM_LAYER);
 				if (red == 194 && green == 190 && blue == 98)
 					addObject(new Tile(xx * 32, yy * 32, 14, ObjectId.Tile), BOTTOM_LAYER);
+				
+				if (red == 160 && green == 171 && blue == 177)
+					addObject(new Rock(xx * 32, yy * 32, this, ObjectId.Rock), MIDDLE_LAYER);
 			}
 		}
 	}
