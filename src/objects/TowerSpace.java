@@ -46,7 +46,7 @@ public class TowerSpace extends GameObject {
 	public void render(Graphics g) {
 		g.drawImage(tex.grassFloor[15], x, y, width, height, null);
 		
-		if (GameMain.state == GameMain.STATE.GAME && getBounds().contains(MouseInput.x, MouseInput.y)) 
+		if (isEmpty && GameMain.state == GameMain.STATE.GAME && getBounds().contains(MouseInput.x, MouseInput.y)) 
 			g.drawImage(tex.towerSpace, x, y, width, height, null);
 	}
 

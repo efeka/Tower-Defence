@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import framework.GameObject;
 import framework.ObjectId;
+import objects.Levels;
 import objects.PathingHelper;
 import objects.Rock;
 import objects.Spawner;
@@ -26,6 +27,8 @@ public class Handler {
 	
 	public ArrayList<GameObject> enemies;
 	
+	public Levels levels;
+	
 	public Handler() {
 		enemies = new ArrayList<GameObject>();
 		BufferedImageLoader loader = new BufferedImageLoader();
@@ -45,34 +48,50 @@ public class Handler {
 				int blue = (pixel) & 0xff;
 				
 				if (red == 166 && green == 93 && blue == 53)
-					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.UP, false, ObjectId.PathingHelper), MIDDLE_LAYER);
+					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.UP, false, ObjectId.PathingHelper), BOTTOM_LAYER);
 				if (red == 0 && green == 127 && blue == 127)
-					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.DOWN, false, ObjectId.PathingHelper), MIDDLE_LAYER);
+					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.DOWN, false, ObjectId.PathingHelper), BOTTOM_LAYER);
 				if (red == 0 && green == 127 && blue == 70)
-					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.LEFT, false, ObjectId.PathingHelper), MIDDLE_LAYER);
+					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.LEFT, false, ObjectId.PathingHelper), BOTTOM_LAYER);
 				if (red == 0 && green == 74 && blue == 127)
-					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.RIGHT, false, ObjectId.PathingHelper), MIDDLE_LAYER);
+					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.RIGHT, false, ObjectId.PathingHelper), BOTTOM_LAYER);
 				if (red == 205 && green == 93 && blue == 53)
-					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.UP, true, ObjectId.PathingHelper), MIDDLE_LAYER);
+					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.UP, true, ObjectId.PathingHelper), BOTTOM_LAYER);
 				if (red == 70 && green == 124 && blue == 89)
-					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.DOWN, true, ObjectId.PathingHelper), MIDDLE_LAYER);
+					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.DOWN, true, ObjectId.PathingHelper), BOTTOM_LAYER);
 				if (red == 0 && green == 143 && blue == 105)
-					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.LEFT, true, ObjectId.PathingHelper), MIDDLE_LAYER);
+					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.LEFT, true, ObjectId.PathingHelper), BOTTOM_LAYER);
 				if (red == 0 && green == 74 && blue == 201)
-					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.RIGHT, true, ObjectId.PathingHelper), MIDDLE_LAYER);
+					addObject(new PathingHelper(xx * 32, yy * 32, PathingHelper.RIGHT, true, ObjectId.PathingHelper), BOTTOM_LAYER);
 				
 				if (red == 255 && green == 255 && blue == 255)
 					addObject(new TowerSpace(xx * 32, yy * 32, this, ObjectId.TowerSpace), MIDDLE_LAYER);
 				
-				if (red == 67 && green == 94 && blue == 219) 
-					addObject(new Spawner(xx * 32, yy * 32, Spawner.SPAWN_RIGHT, this, ObjectId.Spawner), TOP_LAYER);
-				if (red == 92 && green == 116 && blue == 224) 
-					addObject(new Spawner(xx * 32, yy * 32, Spawner.SPAWN_LEFT, this, ObjectId.Spawner), TOP_LAYER);
-				if (red == 128 && green == 149 && blue == 242) 
-					addObject(new Spawner(xx * 32, yy * 32, Spawner.SPAWN_UP, this, ObjectId.Spawner), TOP_LAYER);
-				if (red == 158 && green == 175 && blue == 255) 
-					addObject(new Spawner(xx * 32, yy * 32, Spawner.SPAWN_DOWN, this, ObjectId.Spawner), TOP_LAYER);
-			
+				if (red == 67 && green == 94 && blue == 219) {
+					Spawner spawner = new Spawner(xx * 32, yy * 32, Spawner.SPAWN_RIGHT, this, ObjectId.Spawner);
+					levels = new Levels(0, 0, spawner, this, ObjectId.Levels);
+					addObject(spawner, TOP_LAYER);
+					addObject(levels, BOTTOM_LAYER);
+				}
+				if (red == 92 && green == 116 && blue == 224) {
+					Spawner spawner = new Spawner(xx * 32, yy * 32, Spawner.SPAWN_LEFT, this, ObjectId.Spawner);
+					levels = new Levels(0, 0, spawner, this, ObjectId.Levels);
+					addObject(spawner, TOP_LAYER);
+					addObject(levels, BOTTOM_LAYER);
+				}
+				if (red == 128 && green == 149 && blue == 242) { 
+					Spawner spawner = new Spawner(xx * 32, yy * 32, Spawner.SPAWN_UP, this, ObjectId.Spawner);
+					levels = new Levels(0, 0, spawner, this, ObjectId.Levels);
+					addObject(spawner, TOP_LAYER);
+					addObject(levels, BOTTOM_LAYER);
+				}
+				if (red == 158 && green == 175 && blue == 255) { 
+					Spawner spawner = new Spawner(xx * 32, yy * 32, Spawner.SPAWN_DOWN, this, ObjectId.Spawner);
+					levels = new Levels(0, 0, spawner, this, ObjectId.Levels);
+					addObject(spawner, TOP_LAYER);
+					addObject(levels, BOTTOM_LAYER);
+				}
+				
 				if (red == 143 && green == 203 && blue == 98)
 					addObject(new Tile(xx * 32, yy * 32, 0, ObjectId.Tile), BOTTOM_LAYER);
 				if (red == 0 && green == 140 && blue == 98)
@@ -105,7 +124,7 @@ public class Handler {
 					addObject(new Tile(xx * 32, yy * 32, 14, ObjectId.Tile), BOTTOM_LAYER);
 				
 				if (red == 160 && green == 171 && blue == 177)
-					addObject(new Rock(xx * 32, yy * 32, this, ObjectId.Rock), MIDDLE_LAYER);
+					addObject(new Rock(xx * 32, yy * 32, this, ObjectId.Rock), BOTTOM_LAYER);
 			}
 		}
 	}
@@ -138,6 +157,20 @@ public class Handler {
 			break;
 		case TOP_LAYER:
 			layer3.add(object);
+			break;
+		}
+	}
+	
+	public void addObject(GameObject object, int layer, int index) {
+		switch(layer) {
+		case BOTTOM_LAYER:
+			layer1.add(index, object);
+			break;
+		case MIDDLE_LAYER:
+			layer2.add(index, object);
+			break;
+		case TOP_LAYER:
+			layer3.add(index, object);
 			break;
 		}
 	}

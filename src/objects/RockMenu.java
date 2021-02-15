@@ -42,8 +42,9 @@ public class RockMenu extends GameObject {
 			}
 		}
 		
-		if (MouseInput.leftPressed && getYesBounds().contains(MouseInput.x, MouseInput.y)) {  
+		if (GameMenu.coins >= 25 && MouseInput.leftPressed && getYesBounds().contains(MouseInput.x, MouseInput.y)) {  
 			isOpen = false;
+			GameMenu.coins -= 25;
 			handler.addObject(new TowerSpace(rock.getX(), rock.getY(), handler, ObjectId.TowerSpace), Handler.MIDDLE_LAYER);
 			handler.removeObject(rock);
 		}

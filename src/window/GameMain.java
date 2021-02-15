@@ -8,13 +8,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
-import framework.GameObject;
 import framework.MouseInput;
 import framework.ObjectId;
 import framework.Texture;
 import objects.GameMenu;
+import objects.PauseMenu;
 
 @SuppressWarnings("serial")
 public class GameMain extends Canvas implements Runnable {
@@ -29,6 +28,7 @@ public class GameMain extends Canvas implements Runnable {
 	private static Texture tex;
 	
 	private static GameMenu gameMenu;
+	private PauseMenu pauseMenu;
 	
 	public static final int WIDTH = 32 * 25, HEIGHT = 32 * 21;
 	
@@ -37,14 +37,11 @@ public class GameMain extends Canvas implements Runnable {
 		tex = new Texture();
 		new Window(WIDTH, HEIGHT, "Tower Defence", this);
 		gameMenu = new GameMenu(WIDTH / 2 - 32 * 11 / 2, 5, ObjectId.GameMenu);
+		pauseMenu = new PauseMenu(WIDTH / 2, HEIGHT / 2, ObjectId.PauseMenu);
 		handler = new Handler();
 		mouse = new MouseInput();
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
-	}
-	
-	public static Texture getTexture() {
-		return tex;
 	}
 	
 	public static enum STATE{
@@ -58,7 +55,9 @@ public class GameMain extends Canvas implements Runnable {
 	private void tick() {
 		try {
 			handler.tick();
-		} catch(Exception ignored) {}
+		} catch(Exception ignored) {
+			//ignored.printStackTrace();
+		}
 	}
 
 	private void render() {
@@ -78,6 +77,9 @@ public class GameMain extends Canvas implements Runnable {
 		try {
 			handler.render(g);
 			gameMenu.render(g);
+			
+			if (state == STATE.PAUSED)
+				pauseMenu.render(g);
 		} catch(Exception ignored) {}
 
 		//---draw end---	
@@ -102,7 +104,11 @@ public class GameMain extends Canvas implements Runnable {
 					tick();
 				try {
 					gameMenu.tick();
-				} catch(NullPointerException ignored) {}
+					if (state == STATE.PAUSED)
+						pauseMenu.tick();
+				} catch(NullPointerException ignored) {
+					//ignored.printStackTrace();
+				}
 				delta--;
 			}
 			render();
@@ -141,6 +147,10 @@ public class GameMain extends Canvas implements Runnable {
 	
 	public static GameMenu getGameMenu() {
 		return gameMenu;
+	}
+	
+	public static Texture getTexture() {
+		return tex;
 	}
 
 	public static void main(String[] args) {

@@ -28,7 +28,7 @@ public class Rock extends GameObject {
 		this.handler = handler;
 		width = height = 32;
 		
-		rockMenu = new RockMenu(x - 84, y - 60, this, handler, ObjectId.RockMenu);
+		rockMenu = new RockMenu(x - 83, y - 60, this, handler, ObjectId.RockMenu);
 		handler.addObject(rockMenu, Handler.TOP_LAYER);
 	}
 

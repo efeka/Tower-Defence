@@ -37,13 +37,19 @@ public class Spawner extends GameObject {
 	}
 
 	public void tick() {
-		spawnTimer++;
-		if (spawnTimer >= spawnCooldown) {
-			spawnTimer = 0;
+
+	}
+	
+	public void spawnNext(ObjectId object) {
+		switch(object) {
+		case BasicEnemy:
 			GameObject enemy = new BasicEnemy(x, y, spawnDirection, enemyPriority++, handler, ObjectId.BasicEnemy);
 			handler.addObject(enemy, Handler.MIDDLE_LAYER);
 			handler.enemies.add(enemy);
 			handler.enemies.sort(comparator);
+			break;
+		default:
+			break;
 		}
 	}
 

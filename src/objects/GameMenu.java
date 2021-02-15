@@ -63,7 +63,7 @@ public class GameMenu extends GameObject {
 			coin = "0" + coin;
 		g.drawString(coin, x + 70, y + height / 2 + 9);
 		
-		g.drawString(currentWave + "/" + maxWaves, x + width - 132, y + height / 2 + 9);
+		g.drawString(Levels.currentWave + "/" + Levels.maxWaves, x + width - 132, y + height / 2 + 9);
 	}
 
 	public Rectangle getBounds() {

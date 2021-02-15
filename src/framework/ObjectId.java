@@ -13,6 +13,16 @@ public enum ObjectId {
 	GameMenu(),
 	Coin(),
 	Rock(),
-	RockMenu()
+	RockMenu(),
+	TargetBullet(),
+	PlusShooterTower(),
+	Trail(),
+	Levels(),
+	Empty(),
+	DustAnimation(),
+	BallistaTower(),
+	PauseMenu(),
+	MortarTower(),
+	MortarBomb()
 	
 }

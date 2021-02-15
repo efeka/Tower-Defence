@@ -44,24 +44,27 @@ public class TowersMenu extends GameObject {
 			handler.removeObject(this);
 			isOpen = false;
 		}
-//		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower2().contains(MouseInput.x, MouseInput.y)) {
-//			tower.isEmpty = false;
-//			tower.towerType = tower.TOWER2;
-//			handler.removeObject(this);
-//			isOpen = false;
-//		}
-//		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower3().contains(MouseInput.x, MouseInput.y)) {
-//			tower.isEmpty = false;
-//			tower.towerType = tower.TOWER3;
-//			handler.removeObject(this);
-//			isOpen = false;
-//		}
-//		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower4().contains(MouseInput.x, MouseInput.y)) {
-//			tower.isEmpty = false;
-//			tower.towerType = tower.TOWER4;
-//			handler.removeObject(this);
-//			isOpen = false;
-//		}
+		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower2().contains(MouseInput.x, MouseInput.y)) {
+			tower.isEmpty = false;
+			tower.towerType = tower.TOWER2;
+			handler.addObject(new PlusShooterTower(tower.getX(), tower.getY(), handler, ObjectId.PlusShooterTower), Handler.MIDDLE_LAYER);
+			handler.removeObject(this);
+			isOpen = false;
+		}
+		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower3().contains(MouseInput.x, MouseInput.y)) {
+			tower.isEmpty = false;
+			tower.towerType = tower.TOWER3;
+			handler.addObject(new BallistaTower(tower.getX(), tower.getY(), handler, ObjectId.BallistaTower), Handler.MIDDLE_LAYER);
+			handler.removeObject(this);
+			isOpen = false;
+		}
+		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower4().contains(MouseInput.x, MouseInput.y)) {
+			tower.isEmpty = false;
+			tower.towerType = tower.TOWER4;
+			handler.addObject(new MortarTower(tower.getX(), tower.getY(), handler, ObjectId.MortarTower), Handler.MIDDLE_LAYER);
+			handler.removeObject(this);
+			isOpen = false;
+		}
 
 	}
 
