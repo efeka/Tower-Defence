@@ -39,10 +39,32 @@ public class AirOnlyTower extends GameObject {
 			shootTimer = 0;
 			target = findBestTarget();
 			if (target != null) {
-				if (rotation == 3 || rotation == 4 || rotation == 5)
-					handler.addObject(new TargetBullet(x + width / 2 - 16, y + height / 2 - 16, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER, 0);
-				else
-					handler.addObject(new TargetBullet(x + width / 2 - 16, y + height / 2 - 16, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER);
+				switch(rotation) {
+				case 0:
+					handler.addObject(new AirOnlyBullet(x + 8, y, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 - 32 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER);
+					break;
+				case 1:
+					handler.addObject(new AirOnlyBullet(x + 16, y - 8, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 - 32 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER);
+					break;
+				case 2:
+					handler.addObject(new AirOnlyBullet(x + 24, y - 18, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 - 32 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER);
+					break;
+				case 3:
+					handler.addObject(new AirOnlyBullet(x + 16, y - 24, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 - 32 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER, 0);
+					break;
+				case 4:
+					handler.addObject(new AirOnlyBullet(x + 8, y - 32, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 - 32 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER, 0);
+					break;	
+				case 5:
+					handler.addObject(new AirOnlyBullet(x, y - 28, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 - 32 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER, 0);
+					break;
+				case 6:
+					handler.addObject(new AirOnlyBullet(x - 8, y - 18, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 - 32 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER);
+					break;
+				case 7:
+					handler.addObject(new AirOnlyBullet(x - 8, y - 10, target.getX() + target.getWidth() / 2 - 8 + target.getVelX() * 5, target.getY() + target.getHeight() / 2 - 8 - 32 + target.getVelY() * 5, damage, handler, ObjectId.TargetBullet), Handler.MIDDLE_LAYER);
+					break;
+				}
 			}
 		}
 	}
@@ -106,9 +128,10 @@ public class AirOnlyTower extends GameObject {
 		}
 		else
 			g.drawImage(tex.airOnly[rotation], x - 9, y - 28, width, height, null);
-		
+			
 		if (GameMain.state == GameMain.STATE.GAME && getBounds().contains(MouseInput.x, MouseInput.y))
 			g.drawImage(tex.towerSpace, x, y, 32, 32, null);
+
 	}
 	
 	public boolean isBetween(double angle, double min, double max) {

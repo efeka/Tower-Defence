@@ -51,7 +51,7 @@ public class Spawner extends GameObject {
 			break;
 		case FlyingEnemy:
 			enemy = new FlyingEnemy(x, y, spawnDirection, enemyPriority++, handler, ObjectId.FlyingEnemy);
-			handler.addObject(enemy, Handler.MIDDLE_LAYER);
+			handler.addObject(enemy, Handler.TOP_LAYER);
 			handler.flyingEnemies.add(enemy);
 			handler.flyingEnemies.sort(comparator);
 			break;

@@ -138,6 +138,8 @@ public class Handler {
 			layer1.get(i).tick();
 		for (int i = 0; i < layer3.size(); i++) 
 			layer3.get(i).tick();
+		
+		
 	}
 
 	public void render(Graphics g) {

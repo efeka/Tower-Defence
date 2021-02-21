@@ -9,6 +9,7 @@ import effects.CoinEarnedAnimation;
 import framework.GameObject;
 import framework.ObjectId;
 import framework.Texture;
+import window.Animation;
 import window.GameMain;
 import window.Handler;
 
@@ -28,6 +29,11 @@ public class FlyingEnemy extends GameObject {
 	private int facing = 1;
 
 	private int maxHealth = 150;
+	
+	private Animation flyAnim;
+	private Animation flyLeftAnim;
+	private Animation flyUpAnim;
+	private EnemyShadow shadow;
 	
 	public FlyingEnemy(int x, int y, int initialDirection, int priority, Handler handler, ObjectId id) {
 		super(x, y, id);
@@ -55,12 +61,22 @@ public class FlyingEnemy extends GameObject {
 			velY = 0;
 			break;
 		}
-
+		
+		shadow = new EnemyShadow(x, y, handler, ObjectId.EnemyShadow);
+		handler.addObject(shadow, Handler.BOTTOM_LAYER);
+		
+		flyAnim = new Animation(5, tex.flyingEnemy[0], tex.flyingEnemy[1], tex.flyingEnemy[2], tex.flyingEnemy[3], tex.flyingEnemy[4], tex.flyingEnemy[0], tex.flyingEnemy[1], tex.flyingEnemy[2], tex.flyingEnemy[3], tex.flyingEnemy[4], tex.flyingEnemy[0], tex.flyingEnemy[1], tex.flyingEnemy[2], tex.flyingEnemy[3], tex.flyingEnemy[4], tex.flyingEnemy[0], tex.flyingEnemy[1], tex.flyingEnemy[2], tex.flyingEnemy[3], tex.flyingEnemy[4]);
+		flyLeftAnim = new Animation(5, tex.flyingEnemy[5], tex.flyingEnemy[6], tex.flyingEnemy[7], tex.flyingEnemy[8], tex.flyingEnemy[9], tex.flyingEnemy[5], tex.flyingEnemy[6], tex.flyingEnemy[7], tex.flyingEnemy[8], tex.flyingEnemy[9], tex.flyingEnemy[5], tex.flyingEnemy[6], tex.flyingEnemy[7], tex.flyingEnemy[8], tex.flyingEnemy[9], tex.flyingEnemy[5], tex.flyingEnemy[6], tex.flyingEnemy[7], tex.flyingEnemy[8], tex.flyingEnemy[9]);
+		flyUpAnim = new Animation(5, tex.flyingEnemy[10], tex.flyingEnemy[11], tex.flyingEnemy[12], tex.flyingEnemy[13], tex.flyingEnemy[14], tex.flyingEnemy[10], tex.flyingEnemy[11], tex.flyingEnemy[12], tex.flyingEnemy[13], tex.flyingEnemy[14], tex.flyingEnemy[10], tex.flyingEnemy[11], tex.flyingEnemy[12], tex.flyingEnemy[13], tex.flyingEnemy[14], tex.flyingEnemy[10], tex.flyingEnemy[11], tex.flyingEnemy[12], tex.flyingEnemy[13], tex.flyingEnemy[14]);
 	}
 
 	public void tick() {
+		shadow.setX(x);
+		shadow.setY(y);
+		
 		if (health <= 0) {
 			handler.removeObject(this);
+			handler.removeObject(shadow);
 			handler.flyingEnemies.remove(this);
 			int random = (int)(Math.random() * 3 + 1);
 			for (int i = 0; i < random; i++) {
@@ -88,6 +104,10 @@ public class FlyingEnemy extends GameObject {
 		}
 
 		collision();
+		
+		flyAnim.runAnimation();
+		flyLeftAnim.runAnimation();
+		flyUpAnim.runAnimation();
 	}
 	
 	private void collision() {
@@ -133,7 +153,7 @@ public class FlyingEnemy extends GameObject {
 							velX = -velocity;
 							velY = 0;
 							x = tempObject.getX();
-							y = tempObject.getY() - height;
+							y = tempObject.getY() - 32;
 						}
 						else {
 							velX = -velocity;
@@ -147,7 +167,7 @@ public class FlyingEnemy extends GameObject {
 							velX = velocity;
 							velY = 0;
 							x = tempObject.getX();
-							y = tempObject.getY() - height;
+							y = tempObject.getY() - 32;
 						}
 						else {
 							velX = velocity;
@@ -163,17 +183,23 @@ public class FlyingEnemy extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.blue);
-		g.fillRect(x, y, width, height);
-		Graphics2D g2d = (Graphics2D) g;
+		if (velX != 0) {
+			if (facing == 1)
+				flyAnim.drawAnimation(g, x, y - 28, width, height);
+			else
+				flyLeftAnim.drawAnimation(g, x, y - 28, width, height);
+		}
+		else
+			flyUpAnim.drawAnimation(g, x, y - 28, width, height);
+		
 		g.setColor(Color.red);
-		g2d.draw(getBounds());
-		g.setColor(Color.white);
-		g2d.draw(getBottomBounds());
+		g.fillRect(x - (maxHealth / 4 - width) / 2 - 1, y - 40, maxHealth / 4, 4);
+		g.setColor(Color.green);
+		g.fillRect(x - (maxHealth / 4 - width) / 2 - 1, y - 40, health / 4, 4);
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 32, 32);
+		return new Rectangle(x, y - 32, width, height - 32);
 	}
 	
 	public Rectangle getBottomBounds() {

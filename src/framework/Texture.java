@@ -43,6 +43,11 @@ public class Texture {
 	
 	public BufferedImage[] airOnly = new BufferedImage[8];
 	
+	public BufferedImage[] flyingEnemy = new BufferedImage[15];
+	public BufferedImage enemyShadow;
+	
+	public BufferedImage[] airOnlyBullet = new BufferedImage[3];
+	
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();
 		try {
@@ -123,6 +128,16 @@ public class Texture {
 		
 		for (int i = 0; i < 8; i++)
 			airOnly[i] = tower_sheet.getSubimage(1 + 50 * i, 148, 49, 59);
+		
+		for (int i = 0; i < 10; i++)
+			flyingEnemy[i] = enemy_sheet.getSubimage(1 + 33 * i, 34, 32, 64);
+		for (int i = 0; i < 5; i++)
+			flyingEnemy[i + 10] = enemy_sheet.getSubimage(1 + 33 * i, 100, 32, 64);
+		
+		enemyShadow = enemy_sheet.getSubimage(331, 34, 32, 32);
+		
+		for (int i = 0; i < 3; i++)
+			airOnlyBullet[i] = tower_sheet.getSubimage(1 + 17 * i, 208, 16, 16);
 	
 	}
 }

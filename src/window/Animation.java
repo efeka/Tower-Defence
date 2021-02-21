@@ -39,7 +39,8 @@ public class Animation {
 			if (count == i)
 				currentImg = images[i];
 		}
-		count++;
+		if (!playedOnce)
+			count++;
 		if (count > frames) {
 			count = 0;
 			playedOnce = true;

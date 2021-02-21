@@ -67,11 +67,6 @@ public class Levels extends GameObject {
 				}
 			}
 		}
-//		spawnTimer++;
-//		if (spawnTimer >= spawnCooldown) {
-//			spawnTimer = 0;
-//			spawner.spawnNext(ObjectId.BasicEnemy);
-//		}
 		
 	}
 
