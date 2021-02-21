@@ -31,7 +31,7 @@ public class Texture {
 	
 	public BufferedImage[] dustEffect = new BufferedImage[5];
 	
-	public BufferedImage basicEnemy;
+	public BufferedImage[] basicEnemy = new BufferedImage[12];
 	
 	public BufferedImage[] ballistaTower = new BufferedImage[6];
 	public BufferedImage arrow; 
@@ -40,6 +40,8 @@ public class Texture {
 	public BufferedImage[] resumeButton = new BufferedImage[2], restartButton = new BufferedImage[2], levelsButton = new BufferedImage[2], settingsButton = new BufferedImage[2], mainMenuButton = new BufferedImage[2], quitButton = new BufferedImage[2];
 	
 	public BufferedImage[] bomb = new BufferedImage[9];
+	
+	public BufferedImage[] airOnly = new BufferedImage[8];
 	
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();
@@ -88,7 +90,8 @@ public class Texture {
 		cannonBall[0] = tower_sheet.getSubimage(295, 1, 16, 16);
 		cannonBall[1] = tower_sheet.getSubimage(295, 18, 12, 12);
 		
-		basicEnemy = enemy_sheet.getSubimage(1, 1, 32, 32);
+		for (int i = 0; i < 12; i++)
+			basicEnemy[i] = enemy_sheet.getSubimage(1 + 33 * i, 1, 32, 32);
 		
 		for (int i = 0; i < 5; i++)
 			plusTower[i] = tower_sheet.getSubimage(50 + 49 * i, 1, 48, 48);
@@ -117,6 +120,9 @@ public class Texture {
 		
 		for (int i = 0; i < 9; i++)
 			bomb[i] = tower_sheet.getSubimage(1 + 21 * i, 148, 20, 48);
+		
+		for (int i = 0; i < 8; i++)
+			airOnly[i] = tower_sheet.getSubimage(1 + 50 * i, 148, 49, 59);
 	
 	}
 }

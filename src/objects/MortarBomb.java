@@ -32,8 +32,8 @@ public class MortarBomb extends GameObject {
 		this.aimY = aimY;
 		width = height = 16;
 		hypot = Math.hypot(aimX - x, aimY - y);
-		vX = (float) (1 * (aimX - x) / hypot);
-		vY = (float) (1 * (aimY - y) / hypot);
+		vX = (float) (3 * (aimX - x) / hypot);
+		vY = (float) (3 * (aimY - y) / hypot);
 		renderY = y;
 		
 		float resultant = (float) Math.sqrt(vX * vX + vY * vY);
@@ -47,15 +47,15 @@ public class MortarBomb extends GameObject {
 		renderY += rvY;
 		if (rvY < limitVelY)
 			rvY += gravity;
+		else
+			handler.removeObject(this);
+		if (Math.abs(aimX - x) < 15 && Math.abs(aimY - y) < 15) {
+			handler.removeObject(this);
+		}
 		
 		tickCount--;
 		if (tickCount <= 0)
 			handler.removeObject(this);
-//		else
-//			handler.removeObject(this);
-//		if (Math.abs(aimX - x) < 15 && Math.abs(aimY - y) < 15) {
-//			handler.removeObject(this);
-//		}
 	}
 
 	public void render(Graphics g) {

@@ -2,9 +2,9 @@ package objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import effects.DustAnimation;
 import framework.GameObject;
 import framework.ObjectId;
 import framework.Texture;

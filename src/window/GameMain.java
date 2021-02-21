@@ -56,7 +56,7 @@ public class GameMain extends Canvas implements Runnable {
 		try {
 			handler.tick();
 		} catch(Exception ignored) {
-			//ignored.printStackTrace();
+			ignored.printStackTrace();
 		}
 	}
 
@@ -107,7 +107,7 @@ public class GameMain extends Canvas implements Runnable {
 					if (state == STATE.PAUSED)
 						pauseMenu.tick();
 				} catch(NullPointerException ignored) {
-					//ignored.printStackTrace();
+					ignored.printStackTrace();
 				}
 				delta--;
 			}

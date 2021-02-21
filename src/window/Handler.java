@@ -26,11 +26,13 @@ public class Handler {
 	public ArrayList<GameObject> layer3 = new ArrayList<GameObject>();
 	
 	public ArrayList<GameObject> enemies;
+	public ArrayList<GameObject> flyingEnemies;
 	
 	public Levels levels;
 	
 	public Handler() {
 		enemies = new ArrayList<GameObject>();
+		flyingEnemies = new ArrayList<GameObject>();
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level1 = loader.loadImage("/level1.png");
 		loadImageLevel(level1);

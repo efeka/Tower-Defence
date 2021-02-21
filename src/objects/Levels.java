@@ -13,7 +13,7 @@ public class Levels extends GameObject {
 	private Handler handler;
 	
 	private Spawner spawner;
-	private int spawnTimer = 0, spawnCooldown = 120;
+	private int spawnTimer = 0, spawnCooldown = 60;
 	
 	private int waitTimer = 0, waitCooldown = 180;
 	private boolean canSpawn = true;
@@ -44,7 +44,7 @@ public class Levels extends GameObject {
 		level1.push(ObjectId.Empty);
 		level1.push(ObjectId.Empty);
 		for (int i = 0; i < 3; i++)
-			level1.push(ObjectId.BasicEnemy);
+			level1.push(ObjectId.FlyingEnemy);
 	}
 
 	public void tick() {

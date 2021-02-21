@@ -2,18 +2,18 @@ package objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import effects.CoinEarnedAnimation;
 import framework.GameObject;
 import framework.ObjectId;
 import framework.Texture;
-import window.Animation;
 import window.GameMain;
 import window.Handler;
 
-public class BasicEnemy extends GameObject {
-
+public class FlyingEnemy extends GameObject {
+	
 	public static final int MOVE_UP = 0;
 	public static final int MOVE_DOWN = 1;
 	public static final int MOVE_LEFT = 2;
@@ -28,16 +28,13 @@ public class BasicEnemy extends GameObject {
 	private int facing = 1;
 
 	private int maxHealth = 150;
-
-	private Animation walkAnim;
-	private Animation walkLeftAnim;
-	private Animation walkUpAnim;
-
-	public BasicEnemy(int x, int y, int initialDirection, int priority, Handler handler, ObjectId id) {
+	
+	public FlyingEnemy(int x, int y, int initialDirection, int priority, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
 		this.priority = priority;
-		width = height = 32;
+		width = 32;
+		height = 64;
 		health = maxHealth;
 
 		switch(initialDirection) {
@@ -59,15 +56,12 @@ public class BasicEnemy extends GameObject {
 			break;
 		}
 
-		walkAnim = new Animation(4, tex.basicEnemy[0], tex.basicEnemy[1], tex.basicEnemy[2], tex.basicEnemy[3], tex.basicEnemy[2], tex.basicEnemy[1], tex.basicEnemy[0], tex.basicEnemy[0], tex.basicEnemy[1], tex.basicEnemy[2], tex.basicEnemy[3], tex.basicEnemy[2], tex.basicEnemy[1], tex.basicEnemy[0], tex.basicEnemy[0], tex.basicEnemy[1], tex.basicEnemy[2], tex.basicEnemy[3], tex.basicEnemy[2], tex.basicEnemy[1]);
-		walkLeftAnim = new Animation(4, tex.basicEnemy[4], tex.basicEnemy[5], tex.basicEnemy[6], tex.basicEnemy[7], tex.basicEnemy[6], tex.basicEnemy[5], tex.basicEnemy[4], tex.basicEnemy[4], tex.basicEnemy[5], tex.basicEnemy[6], tex.basicEnemy[7], tex.basicEnemy[6], tex.basicEnemy[5], tex.basicEnemy[4], tex.basicEnemy[4], tex.basicEnemy[5], tex.basicEnemy[6], tex.basicEnemy[7], tex.basicEnemy[6], tex.basicEnemy[5]);
-		walkUpAnim = new Animation(4, tex.basicEnemy[8], tex.basicEnemy[9], tex.basicEnemy[10], tex.basicEnemy[11], tex.basicEnemy[10], tex.basicEnemy[9], tex.basicEnemy[8], tex.basicEnemy[8], tex.basicEnemy[9], tex.basicEnemy[10], tex.basicEnemy[11], tex.basicEnemy[10], tex.basicEnemy[9], tex.basicEnemy[8], tex.basicEnemy[8], tex.basicEnemy[9], tex.basicEnemy[10], tex.basicEnemy[11], tex.basicEnemy[10], tex.basicEnemy[9]);
 	}
 
 	public void tick() {
 		if (health <= 0) {
 			handler.removeObject(this);
-			handler.enemies.remove(this);
+			handler.flyingEnemies.remove(this);
 			int random = (int)(Math.random() * 3 + 1);
 			for (int i = 0; i < random; i++) {
 				if (GameMenu.coins < 999)
@@ -94,11 +88,8 @@ public class BasicEnemy extends GameObject {
 		}
 
 		collision();
-		walkAnim.runAnimation();
-		walkLeftAnim.runAnimation();
-		walkUpAnim.runAnimation();
 	}
-
+	
 	private void collision() {
 		Rectangle window = new Rectangle(0, 0, GameMain.WIDTH, GameMain.HEIGHT);
 		if (!getBounds().intersects(window))
@@ -107,7 +98,7 @@ public class BasicEnemy extends GameObject {
 		for (int i = 0; i < handler.layer1.size(); i++) {
 			GameObject tempObject = handler.layer1.get(i);
 			if (tempObject.getId() == ObjectId.PathingHelper) {
-				if (getBounds().intersects(tempObject.getBounds())) {
+				if (getBottomBounds().intersects(tempObject.getBounds())) {
 					switch(tempObject.getUtility()) {
 					case PathingHelper.UP:
 						if (velX > 0) {
@@ -172,23 +163,21 @@ public class BasicEnemy extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		if (velX != 0) {
-			if (facing == 1)
-				walkAnim.drawAnimation(g, x, y, width, height);
-			else
-				walkLeftAnim.drawAnimation(g, x, y, width, height);
-		}
-		else
-			walkUpAnim.drawAnimation(g, x, y, width, height);
-
+		g.setColor(Color.blue);
+		g.fillRect(x, y, width, height);
+		Graphics2D g2d = (Graphics2D) g;
 		g.setColor(Color.red);
-		g.fillRect(x - (maxHealth / 4 - width) / 2 - 1, y - 8, maxHealth / 4, 4);
-		g.setColor(Color.green);
-		g.fillRect(x - (maxHealth / 4 - width) / 2 - 1, y - 8, health / 4, 4);
+		g2d.draw(getBounds());
+		g.setColor(Color.white);
+		g2d.draw(getBottomBounds());
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, width, height);
+		return new Rectangle(x, y, 32, 32);
 	}
-
+	
+	public Rectangle getBottomBounds() {
+		return new Rectangle(x, y, 32, 32);
+	}
+	
 }

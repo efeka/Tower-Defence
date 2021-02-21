@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 
-import effects.DustAnimation;
 import framework.GameObject;
 import framework.MouseInput;
 import framework.ObjectId;
@@ -50,9 +50,9 @@ public class BasicTower extends GameObject {
 	public void render(Graphics g) {
 		if (GameMain.state == GameMain.STATE.GAME && getBounds().contains(MouseInput.x, MouseInput.y)) {
 			g.setColor(new Color(255, 255, 255, 30));
-			g.fillRect(x - 32 * 4 + 32, y - 32 * 4 + 32, 32 * 7, 32 * 7);
+			g.fillRect(x - 32 * 4 + 32, y - 32 * 4 + 31, 32 * 7, 32 * 7);
 			g.setColor(new Color(255, 255, 255, 150));
-			g.drawRect(x - 32 * 4 + 32, y - 32 * 4 + 32, 32 * 7, 32 * 7);	
+			g.drawRect(x - 32 * 4 + 32, y - 32 * 4 + 31, 32 * 7, 32 * 7);	
 		}
 
 		if (target != null) {
@@ -61,11 +61,13 @@ public class BasicTower extends GameObject {
 			float relativeX = aimX - (x + width / 2);
 			float relativeY = aimY - (y + height / 2);
 			double angle = Math.atan2(relativeY, relativeX) + 1.57079633;
-
-			Graphics2D g2d = (Graphics2D) g;
-			g2d.rotate(angle, x + width / 2 - 8, y + height / 2 - 8);
+			
+			AffineTransform reset = new AffineTransform();
+			reset.rotate(0, 0, 0);
+			Graphics2D g2 = (Graphics2D)g;
+			g2.rotate(angle, (int) x + width / 2 - 8, y + height / 2 - 8);
 			g.drawImage(tex.towers[0], x - 8, y - 8, width, height, null);
-			g2d.rotate(-angle, x + width / 2 - 8, y + height / 2 - 8);
+			g2.setTransform(reset);
 		}
 		else
 			g.drawImage(tex.towers[0], x - 8, y - 8, width, height, null);

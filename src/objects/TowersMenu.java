@@ -54,7 +54,7 @@ public class TowersMenu extends GameObject {
 		else if (tower.isEmpty && MouseInput.leftPressed && getBoundsTower3().contains(MouseInput.x, MouseInput.y)) {
 			tower.isEmpty = false;
 			tower.towerType = tower.TOWER3;
-			handler.addObject(new BallistaTower(tower.getX(), tower.getY(), handler, ObjectId.BallistaTower), Handler.MIDDLE_LAYER);
+			handler.addObject(new AirOnlyTower(tower.getX(), tower.getY(), handler, ObjectId.AirOnlyTower), Handler.MIDDLE_LAYER);
 			handler.removeObject(this);
 			isOpen = false;
 		}

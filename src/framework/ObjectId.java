@@ -23,6 +23,8 @@ public enum ObjectId {
 	BallistaTower(),
 	PauseMenu(),
 	MortarTower(),
-	MortarBomb()
+	MortarBomb(),
+	AirOnlyTower(),
+	FlyingEnemy()
 	
 }
