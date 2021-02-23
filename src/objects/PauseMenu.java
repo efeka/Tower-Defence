@@ -26,6 +26,8 @@ public class PauseMenu extends GameObject {
 		int my = MouseInput.y;
 		if (MouseInput.leftPressed && getResumeBounds().contains(mx, my))
 			GameMain.state = GameMain.STATE.GAME;
+		if (MouseInput.leftPressed && getQuitBounds().contains(mx, my))
+			System.exit(0);
 	}
 
 	public void render(Graphics g) {

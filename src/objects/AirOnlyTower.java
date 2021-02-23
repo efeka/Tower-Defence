@@ -131,7 +131,6 @@ public class AirOnlyTower extends GameObject {
 			
 		if (GameMain.state == GameMain.STATE.GAME && getBounds().contains(MouseInput.x, MouseInput.y))
 			g.drawImage(tex.towerSpace, x, y, 32, 32, null);
-
 	}
 	
 	public boolean isBetween(double angle, double min, double max) {
@@ -145,7 +144,7 @@ public class AirOnlyTower extends GameObject {
 	}
 
 	public Rectangle getRangeBounds() {
-		return new Rectangle(x - 32 * 4 + width, y - 32 * 4 + height, 32 * 7, 32 * 7);
+		return new Rectangle(x - 32 * 3, y - 32 * 3, 32 * 7, 32 * 7);
 	}
 
 }

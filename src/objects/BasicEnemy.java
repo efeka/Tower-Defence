@@ -101,8 +101,10 @@ public class BasicEnemy extends GameObject {
 
 	private void collision() {
 		Rectangle window = new Rectangle(0, 0, GameMain.WIDTH, GameMain.HEIGHT);
-		if (!getBounds().intersects(window))
+		if (!getBounds().intersects(window)) {
 			handler.removeObject(this);
+			handler.enemies.remove(this);
+		}
 
 		for (int i = 0; i < handler.layer1.size(); i++) {
 			GameObject tempObject = handler.layer1.get(i);
