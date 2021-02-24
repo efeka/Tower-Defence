@@ -19,17 +19,29 @@ public class BasicTower extends GameObject {
 	private Handler handler;
 
 	private int shootTimer = 0, shootCooldown = 60;
-	private int damage = 40;
-
 	private GameObject target;
+	
+	private TowerUpgradeMenu menu;
+	public TowerSpace towerSpace;
 
-	public BasicTower(int x, int y, Handler handler, ObjectId id) {
+	public BasicTower(int x, int y, TowerSpace towerSpace, Handler handler, ObjectId id) {
 		super(x, y, id);
 		this.handler = handler;
+		this.towerSpace = towerSpace;
+		damage = 40;
+		range = 7;
+		attackSpeed = 6;
+		menu = new TowerUpgradeMenu(x, y, this, 0, handler, ObjectId.TowerUpgradeMenu);
+		handler.addObject(menu, Handler.MENU_LAYER);
 		width = height = 48;
 	}
 
 	public void tick() {
+		if (!menu.isOpen && MouseInput.leftPressed && getBounds().contains(MouseInput.x, MouseInput.y))
+			menu.isOpen = true;
+		
+		shootCooldown = attackSpeed * 10;
+		
 		if (shootTimer < shootCooldown)
 			shootTimer++;
 		else {
@@ -49,10 +61,11 @@ public class BasicTower extends GameObject {
 
 	public void render(Graphics g) {
 		if (GameMain.state == GameMain.STATE.GAME && getBounds().contains(MouseInput.x, MouseInput.y)) {
+			Graphics2D g2d = (Graphics2D) g;
 			g.setColor(new Color(255, 255, 255, 30));
-			g.fillRect(x - 32 * 4 + 32, y - 32 * 4 + 31, 32 * 7, 32 * 7);
+			g2d.fill(getRangeBounds());
 			g.setColor(new Color(255, 255, 255, 150));
-			g.drawRect(x - 32 * 4 + 32, y - 32 * 4 + 31, 32 * 7, 32 * 7);	
+			g2d.draw(getRangeBounds());	
 		}
 
 		if (target != null) {
@@ -81,7 +94,7 @@ public class BasicTower extends GameObject {
 	}
 
 	public Rectangle getRangeBounds() {
-		return new Rectangle(x - 32 * 4 + width, y - 32 * 4 + height, 32 * 7, 32 * 7);
+		return new Rectangle(x - 32 * range / 2 + 16, y - 32 * range / 2 + 16, 32 * range, 32 * range);
 	}
 
 }

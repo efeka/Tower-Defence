@@ -49,6 +49,11 @@ public class TowerSpace extends GameObject {
 		if (isEmpty && GameMain.state == GameMain.STATE.GAME && getBounds().contains(MouseInput.x, MouseInput.y)) 
 			g.drawImage(tex.towerSpace, x, y, width, height, null);
 	}
+	
+	public void addMenu() {
+		if (!handler.layer3.contains(menu))
+			handler.addObject(menu, Handler.MENU_LAYER);
+	}
 
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, width, height);

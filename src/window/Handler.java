@@ -20,10 +20,12 @@ public class Handler {
 	public static final int BOTTOM_LAYER = 0;
 	public static final int MIDDLE_LAYER = 1;
 	public static final int TOP_LAYER = 2;
+	public static final int MENU_LAYER = 3;
 
 	public ArrayList<GameObject> layer1 = new ArrayList<GameObject>();
 	public ArrayList<GameObject> layer2 = new ArrayList<GameObject>();
 	public ArrayList<GameObject> layer3 = new ArrayList<GameObject>();
+	public ArrayList<GameObject> menuLayer = new ArrayList<GameObject>();
 	
 	public ArrayList<GameObject> enemies;
 	public ArrayList<GameObject> flyingEnemies;
@@ -138,7 +140,8 @@ public class Handler {
 			layer1.get(i).tick();
 		for (int i = 0; i < layer3.size(); i++) 
 			layer3.get(i).tick();
-		
+		for (int i = 0; i < menuLayer.size(); i++) 
+			menuLayer.get(i).tick();
 		
 	}
 
@@ -149,6 +152,8 @@ public class Handler {
 			layer2.get(i).render(g);
 		for (int i = 0; i < layer3.size(); i++) 
 			layer3.get(i).render(g);
+		for (int i = 0; i < menuLayer.size(); i++) 
+			menuLayer.get(i).render(g);
 	}
 
 	public void addObject(GameObject object, int layer) {
@@ -161,6 +166,9 @@ public class Handler {
 			break;
 		case TOP_LAYER:
 			layer3.add(object);
+			break;
+		case MENU_LAYER:
+			menuLayer.add(object);
 			break;
 		}
 	}
@@ -175,6 +183,9 @@ public class Handler {
 			break;
 		case TOP_LAYER:
 			layer3.add(index, object);
+			break;
+		case MENU_LAYER:
+			menuLayer.add(index, object);
 			break;
 		}
 	}
@@ -192,6 +203,11 @@ public class Handler {
 
 		if (layer3.contains(object)) {
 			layer3.remove(object);
+			return;
+		}
+		
+		if (menuLayer.contains(object)) {
+			menuLayer.remove(object);
 			return;
 		}
 	}

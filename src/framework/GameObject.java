@@ -14,6 +14,8 @@ public abstract class GameObject  {
 	protected int health;
 	protected int priority;
 	
+	protected int damage, range, attackSpeed;
+	
 	public GameObject(int x, int y, ObjectId id) {
 		this.x = x;
 		this.y = y;
@@ -24,6 +26,30 @@ public abstract class GameObject  {
 	public abstract void render(Graphics g);
 	public abstract Rectangle getBounds();
 	
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public void setRange(int range) {
+		this.range = range;
+	}
+
+	public int getAttackSpeed() {
+		return attackSpeed;
+	}
+
+	public void setAttackSpeed(int attackSpeed) {
+		this.attackSpeed = attackSpeed;
+	}
+
 	public int getPriority() {
 		return priority;
 	}

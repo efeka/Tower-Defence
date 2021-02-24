@@ -26,6 +26,7 @@ public enum ObjectId {
 	MortarBomb(),
 	AirOnlyTower(),
 	FlyingEnemy(),
-	EnemyShadow()
+	EnemyShadow(),
+	TowerUpgradeMenu()
 	
 }

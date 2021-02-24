@@ -48,6 +48,11 @@ public class Texture {
 	
 	public BufferedImage[] airOnlyBullet = new BufferedImage[3];
 	
+	public BufferedImage upgradeMenu;
+	public BufferedImage[] sellButton = new BufferedImage[2];
+	public BufferedImage[] upgradeLevel = new BufferedImage[4];
+	public BufferedImage[] priceTag = new BufferedImage[2];
+	
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();
 		try {
@@ -138,6 +143,13 @@ public class Texture {
 		
 		for (int i = 0; i < 3; i++)
 			airOnlyBullet[i] = tower_sheet.getSubimage(1 + 17 * i, 208, 16, 16);
-	
+
+		upgradeMenu = menu_sheet.getSubimage(655, 1, 177, 146);
+		sellButton[0] = menu_sheet.getSubimage(833, 1, 163, 31);
+		sellButton[1] = menu_sheet.getSubimage(833, 33, 163, 31);
+		for (int i = 0; i < 4; i++)
+			upgradeLevel[i] = menu_sheet.getSubimage(833 + 34 * i, 65, 33, 21);
+		priceTag[0] = menu_sheet.getSubimage(833, 87, 44, 23);
+		priceTag[1] = menu_sheet.getSubimage(878, 87, 44, 23);
 	}
 }
